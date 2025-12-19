@@ -1,0 +1,42 @@
+{
+  "chapters": [
+    {
+      "id": "chapter-00",
+      "chapter_number": "00",
+      "title": "欢迎来到Vibe Coding学习平台",
+      "subtitle": "开启你的AI开发之旅",
+      "icon": "🏠",
+      "color": "#00d9ff",
+      "order": 0
+    },
+    {
+      "id": "chapter-01",
+      "chapter_number": "01",
+      "title": "AI时代的编程思维",
+      "subtitle": "从编码到思考",
+      "icon": "🧠",
+      "color": "#b600ff",
+      "order": 1
+    }
+  ],
+  "lessons": [
+    {
+      "id": "lesson-00-01",
+      "chapter_id": "chapter-00",
+      "lesson_number": 1,
+      "title": "平台介绍与使用指南",
+      "content": "# Vibe Coding 学习平台\n\n欢迎来到Vibe Coding学习平台！这是一个专为AI开发者设计的学习平台，帮助你快速掌握AI开发的核心技能。\n\n## 平台特色\n\n- 🧠 AI时代的编程思维\n- 💡 交互式学习体验\n- 📚 丰富的学习资源\n- 🎯 个性化学习路径\n\n## 如何使用\n\n1. 浏览左侧的章节列表\n2. 点击章节查看课程内容\n3. 完成课程后标记为已完成\n4. 跟踪你的学习进度\n\n祝你学习愉快！",
+      "word_count": 200,
+      "estimated_time": 5
+    },
+    {
+      "id": "lesson-01-01",
+      "chapter_id": "chapter-01",
+      "lesson_number": 1,
+      "title": "AI编程的新范式",
+      "content": "# AI编程的新范式\n\n在AI时代，编程思维正在发生深刻的变化。传统的编程是告诉计算机怎么做，而AI编程则是告诉AI做什么。\n\n## 核心概念\n\n- **提示词工程**：设计有效的提示词来指导AI\n- **模型选择**：根据任务选择合适的AI模型\n- **结果验证**：验证AI生成结果的正确性\n- **持续优化**：不断改进提示词和模型选择\n\n## 学习建议\n\n- 实践是最好的学习方式\n- 多尝试不同的提示词\n- 关注AI的输出质量\n- 不断总结经验教训",
+      "word_count": 300,
+      "estimated_time": 8
+    }
+  ]
+}
