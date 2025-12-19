@@ -54,9 +54,15 @@ const upload = multer({
 
 // 中间件
 app.use(cors({
-    origin: true,
-    credentials: true
+    origin: true, // 允许所有源（CDN环境下需要）
+    credentials: true, // 允许携带凭证
+    exposedHeaders: ['Set-Cookie'], // 暴露Set-Cookie头
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
+
+// 处理OPTIONS请求
+app.options('*', cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -66,12 +72,19 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: false, // 生产环境应设为true（需要HTTPS）
+        secure: true, // EdgeOne环境下需要HTTPS
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000, // 24小时
-        sameSite: 'lax'
-    }
+        sameSite: 'none', // CDN环境下需要设置为none
+        path: '/', // 确保cookie在所有路径下可用
+        domain: '' // 留空自动适应部署域名
+    },
+    proxy: true, // 信任代理（CDN）
+    rolling: true // 每次请求都刷新cookie过期时间
 }));
+
+// 配置信任代理
+app.set('trust proxy', 1); // 信任第一个代理（EdgeOne）
 
 app.use(express.static('public'));
 
