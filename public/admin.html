@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理 - Glimmer-Vibe</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- TinyMCE Rich Text Editor -->
+    <script src="https://cdn.tiny.cloud/1/0ee2s9jv118gme6ymeezh74t2i7k8f42gse1l3x0jj14z6l3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <style>
+        body {
+            font-size: 12px;
+        }
+
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            width: 250px;
+            background: var(--white);
+            border-right: 4px solid var(--black);
+            padding: 1.5rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 4px solid var(--black);
+        }
+
+        .sidebar-title {
+            font-size: 14px;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-user {
+            font-size: 8px;
+            color: var(--gray);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem 0;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 0.75rem;
+            background: var(--paper);
+            border: 3px solid var(--black);
+            color: var(--black);
+            text-decoration: none;
+            font-size: 10px;
+            transition: all 0.1s steps(2);
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--white);
+            border: 3px solid var(--black);
+            font-size: 9px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            box-shadow: 3px 3px 0 0 var(--black);
+        }
+
+        .admin-main {
+            margin-left: 250px;
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 4px solid var(--black);
+        }
+
+        .section-title {
+            font-size: 16px;
+        }
+
+        .add-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: var(--white);
+            border: 3px solid var(--black);
+            font-size: 9px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+            box-shadow: 3px 3px 0 0 var(--black);
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chapter-card {
+            background: var(--white);
+            border: 4px solid var(--black);
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.1s steps(2);
+        }
+
+        .chapter-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 0 var(--black);
+        }
+
+        .chapter-card.selected {
+            border-color: var(--accent);
+            box-shadow: 4px 4px 0 0 var(--accent);
+        }
+
+        .lessons-list {
+            margin-top: 2rem;
+        }
+
+        .lesson-item {
+            background: var(--paper);
+            border: 3px solid var(--black);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lesson-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--black);
+            font-size: 8px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+        }
+
+        .edit-btn {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .delete-btn {
+            background: #ff0000;
+            color: var(--white);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border: 6px solid var(--black);
+            box-shadow: 12px 12px 0 0 var(--black);
+            width: 100%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            z-index: 1001;
+        }
+
+        /* TinyMCE下拉菜单需要更高的z-index */
+        .tox-tinymce-aux {
+            z-index: 10000 !important;
+        }
+
+        .tox.tox-silver-sink.tox-tinymce-aux {
+            z-index: 10000 !important;
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 4px solid var(--black);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 14px;
+        }
+
+        .modal-close {
+            background: var(--white);
+            border: 3px solid var(--black);
+            width: 32px;
+            height: 32px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            font-family: 'Press Start 2P', 'Courier New', monospace;
+            font-size: 10px;
+            padding: 0.75rem;
+            border: 3px solid var(--black);
+            background: var(--white);
+        }
+
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 4px solid var(--black);
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .save-btn,
+        .cancel-btn {
+            padding: 0.75rem 1.5rem;
+            border: 3px solid var(--black);
+            font-size: 9px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', monospace;
+        }
+
+        .save-btn {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .cancel-btn {
+            background: var(--white);
+            color: var(--black);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h1 class="sidebar-title">📊 后台管理</h1>
+                <p class="sidebar-user" id="adminUser">Loading...</p>
+            </div>
+
+            <ul class="sidebar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" data-section="lessons">📝 文章管理</a>
+                </li>
+            </ul>
+
+            <button class="logout-btn" onclick="logout()">登出</button>
+        </aside>
+
+        <main class="admin-main">
+            <section id="lessons-section" class="admin-section active">
+                <div class="section-header">
+                    <h2 class="section-title">📝 文章管理</h2>
+                    <button class="add-btn" onclick="showAddLessonModal()">+ 新建文章</button>
+                </div>
+
+                <div class="chapters-grid" id="chaptersGrid"></div>
+
+                <div class="lessons-list" id="lessonsList" style="display: none;">
+                    <h3 style="font-size: 12px; margin-bottom: 1rem;">文章列表</h3>
+                    <div id="lessonsContainer"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Lesson Editor Modal -->
+    <div class="modal" id="lessonModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="lessonModalTitle">新建文章</h3>
+                <button class="modal-close" onclick="closeLessonModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <form id="lessonForm">
+                    <input type="hidden" id="lessonId">
+
+                    <div class="form-group">
+                        <label class="form-label">所属章节</label>
+                        <select id="lessonChapter" class="form-select" required>
+                            <option value="">请选择章节</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">课程序号</label>
+                        <input type="number" id="lessonNumber" class="form-input" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">文章标题</label>
+                        <input type="text" id="lessonTitle" class="form-input" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">文章内容（HTML富文本）</label>
+                        <textarea id="lessonContent"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" onclick="closeLessonModal()">取消</button>
+                <button class="save-btn" onclick="saveLesson()">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:3000/api';
+        let chapters = [];
+        let selectedChapterId = null;
+        let tinyMCEEditor = null;
+
+        // Check authentication
+        async function checkAuth() {
+            try {
+                const response = await fetch(`${API_BASE}/auth/check`, {
+                    credentials: 'include'
+                });
+                const result = await response.json();
+
+                if (!result.isAuthenticated) {
+                    window.location.href = '/login.html';
+                    return false;
+                }
+
+                document.getElementById('adminUser').textContent = `用户: ${result.username}`;
+                return true;
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                window.location.href = '/login.html';
+                return false;
+            }
+        }
+
+        // Logout
+        async function logout() {
+            try {
+                await fetch(`${API_BASE}/auth/logout`, {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+                window.location.href = '/login.html';
+            } catch (error) {
+                console.error('Logout failed:', error);
+            }
+        }
+
+        // Initialize
+        async function init() {
+            const authenticated = await checkAuth();
+            if (!authenticated) return;
+
+            await loadChapters();
+
+            // 延迟初始化TinyMCE，确保DOM已加载
+            setTimeout(() => {
+                console.log('开始初始化TinyMCE编辑器...');
+                initTinyMCE();
+            }, 100);
+
+            // Navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function() {
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        }
+
+        // Initialize TinyMCE - 使用经过验证的配置
+        function initTinyMCE() {
+            // 如果已存在，先移除
+            if (tinymce.get('lessonContent')) {
+                tinymce.get('lessonContent').remove();
+            }
+
+            tinymce.init({
+                selector: '#lessonContent',
+                height: 500,
+
+                // 插件
+                plugins: [
+                    'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                    'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                    'insertdatetime', 'media', 'table', 'help', 'wordcount'
+                ],
+
+                // 工具栏 - 使用blocks按钮
+                toolbar: 'undo redo | blocks | bold italic underline strikethrough | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist | outdent indent | removeformat | link image table | code fullscreen | help',
+
+                // 菜单栏
+                menubar: 'edit view insert format tools table help',
+
+                // 块级格式 - 中文显示
+                block_formats: '正文=p; 一级标题=h1; 二级标题=h2; 三级标题=h3; 四级标题=h4; 五级标题=h5; 六级标题=h6',
+                images_upload_handler: uploadImage,
+                file_picker_types: 'image media',
+                file_picker_callback: function (callback, value, meta) {
+                    if (meta.filetype === 'image') {
+                        const input = document.createElement('input');
+                        input.setAttribute('type', 'file');
+                        input.setAttribute('accept', 'image/*');
+                        input.onchange = async function () {
+                            const file = this.files[0];
+                            const url = await uploadImageFile(file);
+                            if (url) callback(url, { alt: file.name });
+                        };
+                        input.click();
+                    } else if (meta.filetype === 'media') {
+                        const input = document.createElement('input');
+                        input.setAttribute('type', 'file');
+                        input.setAttribute('accept', 'video/*');
+                        input.onchange = async function () {
+                            const file = this.files[0];
+                            const url = await uploadVideoFile(file);
+                            if (url) callback(url);
+                        };
+                        input.click();
+                    }
+                },
+                // 内容样式 - 完全匹配前端显示效果
+                content_style: `
+                    body {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        font-size: 14px;
+                        line-height: 1.8;
+                        color: #555;
+                        padding: 20px;
+                        background: #fff;
+                    }
+
+                    /* 一级标题 - 最大，黑色粗底边，阴影效果 */
+                    h1 {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        font-size: 24px;
+                        font-weight: 700;
+                        color: #000;
+                        margin: 2rem 0 1rem 0;
+                        padding-bottom: 0.75rem;
+                        border-bottom: 4px solid #000;
+                        text-indent: 0;
+                        line-height: 1.4;
+                        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+                    }
+
+                    h1:first-child {
+                        margin-top: 0;
+                    }
+
+                    /* 二级标题 - 中等，灰色底边 */
+                    h2 {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        font-size: 20px;
+                        font-weight: 700;
+                        color: #000;
+                        margin: 1.5rem 0 1rem 0;
+                        padding-bottom: 0.5rem;
+                        border-bottom: 3px solid #999;
+                        text-indent: 0;
+                        line-height: 1.4;
+                    }
+
+                    /* 三级标题 - 较小，无底边 */
+                    h3 {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        font-size: 17px;
+                        font-weight: 700;
+                        color: #000;
+                        margin: 1.25rem 0 0.75rem 0;
+                        text-indent: 0;
+                        line-height: 1.4;
+                    }
+
+                    /* 四级标题 */
+                    h4 {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        font-size: 16px;
+                        font-weight: 700;
+                        color: #555;
+                        margin: 1rem 0 0.5rem 0;
+                        text-indent: 0;
+                        line-height: 1.4;
+                    }
+
+                    /* 五级、六级标题 */
+                    h5, h6 {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        font-size: 15px;
+                        font-weight: 700;
+                        color: #555;
+                        margin: 1rem 0 0.5rem 0;
+                        text-indent: 0;
+                        line-height: 1.4;
+                    }
+
+                    /* 段落 - 首行缩进2字符 */
+                    p {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        font-size: 14px;
+                        color: #555;
+                        line-height: 1.8;
+                        letter-spacing: 0.05em;
+                        margin-top: 0.5em;
+                        margin-bottom: 0.5em;
+                        text-indent: 2em;
+                    }
+
+                    /* 列表项不缩进 */
+                    li p {
+                        text-indent: 0;
+                    }
+
+                    /* 无序列表 */
+                    ul {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        font-size: 14px;
+                        color: #555;
+                        margin: 1rem 0;
+                        padding-left: 2em;
+                        line-height: 1.8;
+                    }
+
+                    ul li {
+                        margin-bottom: 0.5em;
+                        list-style-type: disc;
+                    }
+
+                    ul ul {
+                        margin: 0.5em 0;
+                    }
+
+                    ul ul li {
+                        list-style-type: circle;
+                    }
+
+                    /* 有序列表 */
+                    ol {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        font-size: 14px;
+                        color: #555;
+                        margin: 1rem 0;
+                        padding-left: 2em;
+                        line-height: 1.8;
+                    }
+
+                    ol li {
+                        margin-bottom: 0.5em;
+                    }
+
+                    /* 内联代码 */
+                    code {
+                        font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+                        background: #fafafa;
+                        padding: 0.2em 0.4em;
+                        font-size: 0.9em;
+                        border: 1px solid #e0e0e0;
+                        border-radius: 2px;
+                        color: #000;
+                    }
+
+                    /* 代码块 */
+                    pre {
+                        font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+                        background: #fafafa;
+                        border: 4px solid #000;
+                        padding: 1.25rem;
+                        margin: 1.5rem 0;
+                        overflow-x: auto;
+                        box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+                        line-height: 1.6;
+                    }
+
+                    pre code {
+                        background: none;
+                        border: none;
+                        padding: 0;
+                        font-size: 13px;
+                        color: #000;
+                    }
+
+                    /* 表格 */
+                    table {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        width: 100%;
+                        border-collapse: separate;
+                        border-spacing: 0;
+                        margin: 1.5rem 0;
+                        border: 4px solid #000;
+                        background: #fff;
+                        box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+                    }
+
+                    table thead {
+                        background: #000;
+                        color: #fff;
+                    }
+
+                    table th {
+                        font-size: 14px;
+                        font-weight: 700;
+                        padding: 0.75rem 1rem;
+                        text-align: left;
+                        border-bottom: 3px solid #000;
+                    }
+
+                    table td {
+                        font-size: 14px;
+                        padding: 0.75rem 1rem;
+                        border-bottom: 2px solid #e0e0e0;
+                    }
+
+                    table tbody tr:nth-child(even) {
+                        background: #fafafa;
+                    }
+
+                    table tbody tr:hover {
+                        background: #f0f0f0;
+                    }
+
+                    /* 引用块 */
+                    blockquote {
+                        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+                        font-size: 14px;
+                        margin: 1.5rem 0;
+                        padding: 1rem 1.5rem;
+                        border-left: 5px solid #0066ff;
+                        background: #fafafa;
+                        color: #555;
+                        font-style: italic;
+                    }
+
+                    blockquote p {
+                        margin: 0.5em 0;
+                    }
+
+                    /* 图片 */
+                    img {
+                        max-width: 100%;
+                        height: auto;
+                        display: block;
+                        margin: 1.5rem auto;
+                        border: 4px solid #000;
+                        box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+                    }
+
+                    /* 视频 */
+                    video {
+                        max-width: 100%;
+                        height: auto;
+                        display: block;
+                        margin: 1.5rem auto;
+                        border: 4px solid #000;
+                        box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+                    }
+
+                    /* 链接 */
+                    a {
+                        color: #0066ff;
+                        text-decoration: underline;
+                        transition: color 0.2s;
+                    }
+
+                    a:hover {
+                        color: #0052cc;
+                    }
+
+                    /* 强调 */
+                    strong {
+                        font-weight: 700;
+                        color: #000;
+                    }
+
+                    em {
+                        font-style: italic;
+                    }
+
+                    /* 水平分割线 */
+                    hr {
+                        border: none;
+                        border-top: 3px solid #000;
+                        margin: 2rem 0;
+                    }
+                `,
+
+                // 其他选项
+                branding: false,
+                promotion: false,
+
+                // 编辑器初始化后的回调
+                setup: function(editor) {
+                    editor.on('init', function() {
+                        console.log('✅ TinyMCE 初始化成功！');
+                        console.log('可用的工具栏按钮:', Object.keys(editor.ui.registry.getAll().buttons));
+                    });
+
+                    editor.on('InitError', function(e) {
+                        console.error('❌ TinyMCE 初始化失败:', e);
+                    });
+                }
+            });
+        }
+
+        // Upload image from TinyMCE
+        async function uploadImage(blobInfo, progress) {
+            const formData = new FormData();
+            formData.append('image', blobInfo.blob(), blobInfo.filename());
+
+            try {
+                const response = await fetch(`${API_BASE}/upload/image`, {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    return window.location.origin + result.url;
+                } else {
+                    throw new Error(result.error || '上传失败');
+                }
+            } catch (error) {
+                console.error('Upload failed:', error);
+                throw error;
+            }
+        }
+
+        // Upload image file
+        async function uploadImageFile(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+                const response = await fetch(`${API_BASE}/upload/image`, {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    return window.location.origin + result.url;
+                }
+            } catch (error) {
+                console.error('Upload failed:', error);
+                alert('图片上传失败');
+            }
+        }
+
+        // Upload video file
+        async function uploadVideoFile(file) {
+            const formData = new FormData();
+            formData.append('video', file);
+
+            try {
+                const response = await fetch(`${API_BASE}/upload/video`, {
+                    method: 'POST',
+                    body: formData,
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    return window.location.origin + result.url;
+                }
+            } catch (error) {
+                console.error('Upload failed:', error);
+                alert('视频上传失败');
+            }
+        }
+
+        // Load chapters
+        async function loadChapters() {
+            try {
+                const response = await fetch(`${API_BASE}/chapters`, {
+                    credentials: 'include'
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    chapters = result.data;
+                    renderChapters();
+                    populateChapterSelect();
+                }
+            } catch (error) {
+                console.error('Load chapters failed:', error);
+            }
+        }
+
+        // Render chapters
+        function renderChapters() {
+            const grid = document.getElementById('chaptersGrid');
+            grid.innerHTML = chapters.map(chapter => `
+                <div class="chapter-card ${selectedChapterId === chapter.id ? 'selected' : ''}"
+                     onclick="selectChapter('${chapter.id}')">
+                    <div style="font-size: 10px; font-weight: 700; margin-bottom: 0.5rem;">
+                        ${chapter.icon || '📖'} ${chapter.title}
+                    </div>
+                    <div style="font-size: 8px; color: var(--gray);">
+                        ${chapter.subtitle || ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Select chapter
+        async function selectChapter(chapterId) {
+            selectedChapterId = chapterId;
+            renderChapters();
+            await loadLessons(chapterId);
+        }
+
+        // Load lessons
+        async function loadLessons(chapterId) {
+            try {
+                const response = await fetch(`${API_BASE}/chapters/${chapterId}`, {
+                    credentials: 'include'
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    renderLessons(result.data.lessons || []);
+                }
+            } catch (error) {
+                console.error('Load lessons failed:', error);
+            }
+        }
+
+        // Render lessons
+        function renderLessons(lessons) {
+            const list = document.getElementById('lessonsList');
+            const container = document.getElementById('lessonsContainer');
+
+            if (lessons.length === 0) {
+                list.style.display = 'none';
+                return;
+            }
+
+            list.style.display = 'block';
+            container.innerHTML = lessons.map(lesson => `
+                <div class="lesson-item">
+                    <div>
+                        <div style="font-size: 10px; margin-bottom: 0.25rem;">
+                            ${lesson.lesson_number}. ${lesson.title}
+                        </div>
+                        <div style="font-size: 8px; color: var(--gray);">
+                            ${lesson.word_count || 0} 字 · 约 ${lesson.estimated_time || 5} 分钟
+                        </div>
+                    </div>
+                    <div class="lesson-actions">
+                        <button class="edit-btn" onclick="editLesson('${lesson.id}')">编辑</button>
+                        <button class="delete-btn" onclick="deleteLesson('${lesson.id}')">删除</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Populate chapter select
+        function populateChapterSelect() {
+            const select = document.getElementById('lessonChapter');
+            select.innerHTML = '<option value="">请选择章节</option>' +
+                chapters.map(ch => `<option value="${ch.id}">${ch.title}</option>`).join('');
+        }
+
+        // Show add lesson modal
+        function showAddLessonModal() {
+            document.getElementById('lessonModalTitle').textContent = '新建文章';
+            document.getElementById('lessonForm').reset();
+            document.getElementById('lessonId').value = '';
+            if (selectedChapterId) {
+                document.getElementById('lessonChapter').value = selectedChapterId;
+            }
+
+            // 确保TinyMCE已初始化
+            const editor = tinymce.get('lessonContent');
+            if (editor) {
+                editor.setContent('');
+            } else {
+                console.warn('TinyMCE编辑器未初始化，尝试重新初始化...');
+                initTinyMCE();
+            }
+
+            document.getElementById('lessonModal').classList.add('show');
+        }
+
+        // Close lesson modal
+        function closeLessonModal() {
+            document.getElementById('lessonModal').classList.remove('show');
+        }
+
+        // Edit lesson
+        async function editLesson(lessonId) {
+            try {
+                const response = await fetch(`${API_BASE}/lessons/${lessonId}`, {
+                    credentials: 'include'
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    const lesson = result.data;
+                    document.getElementById('lessonModalTitle').textContent = '编辑文章';
+                    document.getElementById('lessonId').value = lesson.id;
+                    document.getElementById('lessonChapter').value = lesson.chapter_id;
+                    document.getElementById('lessonNumber').value = lesson.lesson_number;
+                    document.getElementById('lessonTitle').value = lesson.title;
+
+                    // 确保TinyMCE已初始化
+                    const editor = tinymce.get('lessonContent');
+                    if (editor) {
+                        editor.setContent(lesson.content || '');
+                    } else {
+                        console.warn('TinyMCE编辑器未初始化，尝试重新初始化...');
+                        initTinyMCE();
+                        // 等待编辑器初始化后再设置内容
+                        setTimeout(() => {
+                            const editor = tinymce.get('lessonContent');
+                            if (editor) {
+                                editor.setContent(lesson.content || '');
+                            }
+                        }, 500);
+                    }
+
+                    document.getElementById('lessonModal').classList.add('show');
+                }
+            } catch (error) {
+                console.error('Load lesson failed:', error);
+                alert('加载文章失败');
+            }
+        }
+
+        // Save lesson
+        async function saveLesson() {
+            const lessonId = document.getElementById('lessonId').value;
+            const data = {
+                chapter_id: document.getElementById('lessonChapter').value,
+                lesson_number: parseInt(document.getElementById('lessonNumber').value),
+                title: document.getElementById('lessonTitle').value,
+                content: tinymce.get('lessonContent').getContent()
+            };
+
+            if (!data.chapter_id || !data.title || !data.content) {
+                alert('请填写所有必填项');
+                return;
+            }
+
+            try {
+                const url = lessonId
+                    ? `${API_BASE}/admin/lessons/${lessonId}`
+                    : `${API_BASE}/admin/lessons`;
+
+                const response = await fetch(url, {
+                    method: lessonId ? 'PUT' : 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(lessonId ? '文章更新成功' : '文章创建成功');
+                    closeLessonModal();
+                    if (selectedChapterId) {
+                        await loadLessons(selectedChapterId);
+                    }
+                } else {
+                    alert('保存失败: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Save failed:', error);
+                alert('保存失败');
+            }
+        }
+
+        // Delete lesson
+        async function deleteLesson(lessonId) {
+            if (!confirm('确定要删除此文章吗？')) return;
+
+            try {
+                const response = await fetch(`${API_BASE}/admin/lessons/${lessonId}`, {
+                    method: 'DELETE',
+                    credentials: 'include'
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('删除成功');
+                    if (selectedChapterId) {
+                        await loadLessons(selectedChapterId);
+                    }
+                } else {
+                    alert('删除失败: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Delete failed:', error);
+                alert('删除失败');
+            }
+        }
+
+        // Start
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
