@@ -1,0 +1,47 @@
+# Node.js
+node_modules/
+npm-cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 数据库文件
+*.db
+*.db-journal
+
+# 环境变量
+.env
+.env.local
+.env.production
+
+# 日志文件
+logs/
+*.log
+
+# 上传文件
+public/uploads/*
+!public/uploads/.gitkeep
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# IDE 文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# PM2
+.pm2/
+ecosystem.config.js
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+
+# 备份文件
+*.bak
+*.backup

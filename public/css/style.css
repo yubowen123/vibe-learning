@@ -1,0 +1,2020 @@
+/* ========================================
+   PIXEL COMIC STYLE - VIBE CODING
+   Black & White Pixel Art Comic Theme
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --gray-dark: #2a2a2a;
+    --gray: #666666;
+    --gray-light: #b0b0b0;
+    --accent: #0066ff; /* 单一强调色 - 蓝色 */
+    --bg: #f5f5f5;
+    --paper: #fafafa;
+    --base-font-size: 12px; /* 默认字体大小 */
+    --font-scale: 1; /* 字体缩放比例 */
+}
+
+/* 字体大小设置 */
+body[data-font-size="small"] {
+    --base-font-size: 10px;
+    --font-scale: 0.833;
+}
+
+body[data-font-size="medium"],
+body:not([data-font-size]) {
+    --base-font-size: 12px;
+    --font-scale: 1;
+}
+
+body[data-font-size="large"] {
+    --base-font-size: 14px;
+    --font-scale: 1.167;
+}
+
+body[data-font-size="xlarge"] {
+    --base-font-size: 16px;
+    --font-scale: 1.333;
+}
+
+/* 全局文字缩放规则 - 所有文字元素按比例缩放 */
+body[data-font-size] .brand-text,
+body[data-font-size] .navbar-brand {
+    font-size: calc(16px * var(--font-scale));
+}
+
+body[data-font-size] .brand-subtext {
+    font-size: calc(8px * var(--font-scale));
+}
+
+body[data-font-size] .stat-label {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] .stat-value {
+    font-size: calc(16px * var(--font-scale));
+}
+
+body[data-font-size] .chapter-title {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] .chapter-meta,
+body[data-font-size] .chapter-status {
+    font-size: calc(8px * var(--font-scale));
+}
+
+body[data-font-size] .hero-title {
+    font-size: calc(32px * var(--font-scale));
+}
+
+body[data-font-size] .hero-subtitle {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] .feature-card h3 {
+    font-size: calc(12px * var(--font-scale));
+}
+
+body[data-font-size] .feature-card p {
+    font-size: calc(7px * var(--font-scale));
+}
+
+body[data-font-size] .stat-number {
+    font-size: calc(32px * var(--font-scale));
+}
+
+body[data-font-size] .stat-text {
+    font-size: calc(7px * var(--font-scale));
+}
+
+body[data-font-size] .lesson-title-section h1,
+body[data-font-size] h1 {
+    font-size: calc(16px * var(--font-scale));
+}
+
+body[data-font-size] h2 {
+    font-size: calc(12px * var(--font-scale));
+}
+
+body[data-font-size] h3 {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] h4 {
+    font-size: calc(9px * var(--font-scale));
+}
+
+body[data-font-size] .lesson-description,
+body[data-font-size] .lesson-meta {
+    font-size: calc(8px * var(--font-scale));
+}
+
+body[data-font-size] p {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] .lesson-body {
+    font-size: calc(11px * var(--font-scale));
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+}
+
+body[data-font-size] .lesson-body p,
+body[data-font-size] .lesson-body li,
+body[data-font-size] .lesson-body div {
+    font-size: calc(11px * var(--font-scale));
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+body[data-font-size] .lesson-body p {
+    text-indent: 2em;
+}
+
+body[data-font-size] .lesson-body h1,
+body[data-font-size] .lesson-body h2,
+body[data-font-size] .lesson-body h3,
+body[data-font-size] .lesson-body h4,
+body[data-font-size] .lesson-body h5,
+body[data-font-size] .lesson-body h6 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    text-indent: 0;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+body[data-font-size] .code-block,
+body[data-font-size] pre,
+body[data-font-size] code {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] table,
+body[data-font-size] .content-table {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] .lesson-body table,
+body[data-font-size] .lesson-body .content-table {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] .cyber-btn,
+body[data-font-size] button {
+    font-size: calc(9px * var(--font-scale));
+}
+
+body[data-font-size] .achievement-title {
+    font-size: calc(20px * var(--font-scale));
+}
+
+body[data-font-size] .achievement-message,
+body[data-font-size] .achievement-quote p {
+    font-size: calc(8px * var(--font-scale));
+}
+
+body[data-font-size] .breadcrumb {
+    font-size: calc(7px * var(--font-scale));
+}
+
+body[data-font-size] .lesson-item .lesson-title {
+    font-size: calc(9px * var(--font-scale));
+}
+
+body[data-font-size] .glitch-wrapper h1 {
+    font-size: calc(80px * var(--font-scale)) !important;
+}
+
+body[data-font-size] .settings-title {
+    font-size: calc(16px * var(--font-scale));
+}
+
+body[data-font-size] .setting-name {
+    font-size: calc(12px * var(--font-scale));
+}
+
+body[data-font-size] .size-label {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] .size-value {
+    font-size: calc(8px * var(--font-scale));
+}
+
+body[data-font-size] .preview-label {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] .preview-text {
+    font-size: calc(12px * var(--font-scale));
+}
+
+body[data-font-size] .settings-btn {
+    font-size: calc(16px * var(--font-scale));
+}
+
+body[data-font-size] .chapter-icon,
+body[data-font-size] .feature-icon,
+body[data-font-size] .stat-icon {
+    font-size: calc(24px * var(--font-scale));
+}
+
+body[data-font-size] .achievement-badge {
+    font-size: calc(80px * var(--font-scale));
+}
+
+body[data-font-size] .quote-icon {
+    font-size: calc(20px * var(--font-scale));
+}
+
+body[data-font-size] .loading-state p,
+body[data-font-size] .loading-overlay p {
+    font-size: calc(10px * var(--font-scale));
+}
+
+body[data-font-size] .hero-hint {
+    font-size: calc(9px * var(--font-scale));
+}
+
+body[data-font-size] ul li,
+body[data-font-size] ol li {
+    font-size: calc(8px * var(--font-scale));
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', 'Courier New', monospace;
+    background: var(--bg);
+    color: var(--black);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    font-size: var(--base-font-size);
+    line-height: 1.8;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* ========================================
+   COMIC BACKGROUND EFFECTS
+   ======================================== */
+
+/* Halftone dot pattern */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle, var(--gray-light) 1px, transparent 1px);
+    background-size: 8px 8px;
+    opacity: 0.15;
+    z-index: -2;
+}
+
+/* Pixel grid (subtle) */
+.cyber-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    background-size: 16px 16px;
+    z-index: -1;
+}
+
+/* Paper texture */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.01) 2px,
+        rgba(0, 0, 0, 0.01) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+}
+
+#particles {
+    display: none;
+}
+
+/* ========================================
+   NAVIGATION BAR
+   ======================================== */
+
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 900;
+    background: var(--white);
+    border-bottom: 6px solid var(--black);
+    box-shadow: 0 6px 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.navbar-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.brand-text {
+    font-size: 16px;
+    color: var(--black);
+    letter-spacing: 0.1em;
+    text-shadow: 3px 3px 0 var(--accent);
+}
+
+.brand-subtext {
+    font-size: 8px;
+    color: var(--gray);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.navbar-stats {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: var(--white);
+    border: 3px solid var(--black);
+    padding: 0.5rem 0.75rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 3px 3px 0 0 var(--black);
+}
+
+.stat-icon {
+    font-size: 16px;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.stat-label {
+    font-size: 6px;
+    color: var(--gray);
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 10px;
+    color: var(--black);
+    font-weight: bold;
+}
+
+.progress-bar-container {
+    height: 12px;
+    background: var(--white);
+    border-top: 3px solid var(--black);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--black);
+    width: 0%;
+    transition: width 1s steps(20);
+    position: relative;
+}
+
+.progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 4px,
+        rgba(255, 255, 255, 0.3) 4px,
+        rgba(255, 255, 255, 0.3) 8px
+    );
+}
+
+/* ========================================
+   MAIN LAYOUT
+   ======================================== */
+
+.main-container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    min-height: calc(100vh - 120px);
+}
+
+/* ========================================
+   SIDEBAR - COMIC PANEL STYLE
+   ======================================== */
+
+.sidebar {
+    position: sticky;
+    top: 140px;
+    height: fit-content;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    background: var(--white);
+    border: 5px solid var(--black);
+    padding: 1rem;
+    box-shadow: 6px 6px 0 0 var(--black);
+}
+
+.sidebar-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 4px solid var(--black);
+}
+
+.sidebar-header h3 {
+    font-size: 10px;
+    color: var(--black);
+}
+
+.chapter-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+/* Comic panel style chapters */
+.chapter-item {
+    background: var(--paper);
+    border: 4px solid var(--black);
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.1s steps(3);
+    position: relative;
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.chapter-item::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    background: var(--black);
+}
+
+.chapter-item::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 8px;
+    height: 8px;
+    background: var(--black);
+}
+
+.chapter-item:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 7px 7px 0 0 var(--black);
+    background: var(--white);
+}
+
+.chapter-item.active {
+    border-color: var(--accent);
+    background: rgba(0, 102, 255, 0.05);
+}
+
+.chapter-item.active::before,
+.chapter-item.active::after {
+    background: var(--accent);
+}
+
+.chapter-item.completed {
+    background: var(--white);
+}
+
+.chapter-item.completed::before {
+    content: '✓';
+    width: auto;
+    height: auto;
+    background: none;
+    font-size: 10px;
+    padding: 2px;
+}
+
+.chapter-item.locked {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(1);
+}
+
+.chapter-header {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+}
+
+.chapter-icon {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    border: 3px solid var(--black);
+    flex-shrink: 0;
+}
+
+.chapter-info {
+    flex: 1;
+}
+
+.chapter-title {
+    font-size: 8px;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+}
+
+.chapter-meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 6px;
+    color: var(--gray);
+    flex-wrap: wrap;
+}
+
+.chapter-status {
+    font-weight: bold;
+    color: var(--black);
+}
+
+/* Lesson List */
+.lesson-list {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 3px solid var(--gray-light);
+}
+
+.lesson-item {
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background: var(--white);
+    border-left: 5px solid var(--gray);
+    cursor: pointer;
+    transition: all 0.1s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lesson-item:hover {
+    background: var(--paper);
+    border-left-color: var(--black);
+    transform: translateX(4px);
+}
+
+.lesson-item.completed {
+    border-left-color: var(--accent);
+}
+
+.lesson-item.active {
+    border-left-color: var(--black);
+    background: var(--paper);
+}
+
+.lesson-title {
+    font-size: 7px;
+    line-height: 1.4;
+}
+
+.lesson-meta {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 6px;
+    color: var(--gray);
+    margin-top: 0.25rem;
+}
+
+.lesson-status {
+    font-size: 12px;
+}
+
+/* ========================================
+   WELCOME SCREEN - COMIC STYLE
+   ======================================== */
+
+.welcome-screen {
+    background: var(--white);
+    border: 6px solid var(--black);
+    padding: 2rem;
+    box-shadow: 12px 12px 0 0 var(--black);
+    position: relative;
+}
+
+/* Comic panel corner decorations */
+.welcome-screen::before,
+.welcome-screen::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: var(--black);
+}
+
+.welcome-screen::before {
+    top: -6px;
+    left: -6px;
+}
+
+.welcome-screen::after {
+    bottom: -6px;
+    right: -6px;
+}
+
+.hero-section {
+    text-align: center;
+}
+
+.glitch-wrapper {
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    font-size: 28px;
+    color: var(--black);
+    text-shadow: 4px 4px 0 var(--accent);
+    letter-spacing: 0.1em;
+}
+
+.hero-subtitle {
+    font-size: 10px;
+    color: var(--gray);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.hero-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.feature-card {
+    background: var(--paper);
+    border: 4px solid var(--black);
+    padding: 1.5rem;
+    position: relative;
+    transition: all 0.2s steps(5);
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.3);
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 12px;
+    height: 12px;
+    background: var(--black);
+}
+
+.feature-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 7px 7px 0 0 var(--black);
+}
+
+.feature-icon {
+    font-size: 32px;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    font-size: 10px;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+}
+
+.feature-card p {
+    font-size: 7px;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.hero-actions {
+    margin-bottom: 2rem;
+}
+
+/* Comic speech bubble style button */
+.cyber-btn-large {
+    background: var(--black);
+    border: 4px solid var(--black);
+    color: var(--white);
+    padding: 1rem 2rem;
+    font-size: 12px;
+    font-family: 'Press Start 2P', monospace;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s;
+    text-transform: uppercase;
+    box-shadow: 6px 6px 0 0 var(--accent);
+}
+
+.cyber-btn-large:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 0 var(--accent);
+}
+
+.cyber-btn-large:active {
+    transform: translate(3px, 3px);
+    box-shadow: 3px 3px 0 0 var(--accent);
+}
+
+.btn-glow {
+    display: none;
+}
+
+.hero-hint {
+    margin-top: 1rem;
+    font-size: 7px;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    padding-top: 1.5rem;
+    border-top: 5px solid var(--black);
+    flex-wrap: wrap;
+}
+
+.hero-stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 32px;
+    color: var(--black);
+    text-shadow: 3px 3px 0 var(--gray-light);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-text {
+    font-size: 7px;
+    color: var(--gray);
+    text-transform: uppercase;
+}
+
+/* ========================================
+   CONTENT AREA - COMIC PANEL STYLE
+   ======================================== */
+
+.chapter-content {
+    background: var(--white);
+    border: 6px solid var(--black);
+    padding: 1.5rem;
+    box-shadow: 12px 12px 0 0 var(--black);
+    position: relative;
+}
+
+.chapter-content::before,
+.chapter-content::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: var(--black);
+}
+
+.chapter-content::before {
+    top: -6px;
+    left: -6px;
+}
+
+.chapter-content::after {
+    bottom: -6px;
+    right: -6px;
+}
+
+#lessonContent {
+    color: var(--black);
+    font-size: 9px;
+    line-height: 1.8;
+}
+
+.lesson-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 4px solid var(--black);
+}
+
+.breadcrumb {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    color: var(--gray);
+    font-size: 7px;
+    margin-bottom: 1rem;
+}
+
+.breadcrumb span {
+    cursor: pointer;
+    transition: color 0.1s;
+}
+
+.breadcrumb span:hover {
+    color: var(--accent);
+}
+
+.lesson-title-section h1 {
+    font-size: 16px;
+    color: var(--black);
+    text-shadow: 3px 3px 0 var(--gray-light);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+}
+
+.lesson-description {
+    font-size: 8px;
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+.lesson-body {
+    line-height: 1.8;
+}
+
+.lesson-body h2 {
+    color: var(--black);
+    font-size: 12px;
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--black);
+}
+
+.lesson-body h3 {
+    color: var(--black);
+    font-size: 10px;
+    margin: 1rem 0 0.75rem;
+}
+
+.lesson-body p {
+    color: var(--gray-dark);
+    margin-bottom: 1rem;
+    font-size: 9px;
+    line-height: 1.8;
+}
+
+.lesson-body ul,
+.lesson-body ol {
+    color: var(--gray-dark);
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    font-size: 9px;
+}
+
+.lesson-body li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+/* Inline code */
+.lesson-body code {
+    background: var(--paper);
+    padding: 0.25rem 0.5rem;
+    border: 2px solid var(--gray);
+    color: var(--black);
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+}
+
+/* Code blocks - comic panel style */
+.lesson-body pre,
+.code-block {
+    background: var(--paper);
+    border: 4px solid var(--black);
+    padding: 1rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+    position: relative;
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.lesson-body pre::before,
+.code-block::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 10px;
+    height: 10px;
+    background: var(--black);
+}
+
+.lesson-body pre::after,
+.code-block::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 10px;
+    height: 10px;
+    background: var(--black);
+}
+
+.lesson-body pre code,
+.code-block code {
+    background: none;
+    padding: 0;
+    border: none;
+    color: var(--black);
+    font-size: 8px;
+    line-height: 1.6;
+    display: block;
+}
+
+/* Table Styling - Newspaper style */
+.table-wrapper {
+    overflow-x: auto;
+    margin: 1rem 0;
+}
+
+.content-table,
+.lesson-body table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--white);
+    border: 4px solid var(--black);
+    font-size: 8px;
+}
+
+.content-table thead,
+.lesson-body table thead {
+    background: var(--black);
+    color: var(--white);
+}
+
+.content-table th,
+.lesson-body table th {
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: bold;
+    border-right: 2px solid var(--gray);
+}
+
+.content-table td,
+.lesson-body table td {
+    padding: 0.75rem;
+    color: var(--gray-dark);
+    border-bottom: 2px solid var(--gray-light);
+    border-right: 2px solid var(--gray-light);
+}
+
+.content-table tbody tr:nth-child(even),
+.lesson-body table tbody tr:nth-child(even) {
+    background: var(--paper);
+}
+
+.content-table tr:hover,
+.lesson-body table tbody tr:hover {
+    background: rgba(0, 102, 255, 0.05);
+}
+
+/* ========================================
+   TINYMCE HTML OUTPUT STYLES - 完整优化
+   ======================================== */
+
+/* 一级标题 H1 */
+.lesson-body h1 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: calc(18px * var(--font-scale, 1));
+    font-weight: 700;
+    color: var(--black);
+    margin: 2rem 0 1rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 4px solid var(--black);
+    text-indent: 0;
+    line-height: 1.4;
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.lesson-body h1:first-child {
+    margin-top: 0;
+}
+
+/* 二级标题 H2 */
+.lesson-body h2 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: calc(15px * var(--font-scale, 1));
+    font-weight: 700;
+    color: var(--black);
+    margin: 1.5rem 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--gray);
+    text-indent: 0;
+    line-height: 1.4;
+}
+
+/* 三级标题 H3 */
+.lesson-body h3 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: calc(13px * var(--font-scale, 1));
+    font-weight: 700;
+    color: var(--black);
+    margin: 1.25rem 0 0.75rem 0;
+    text-indent: 0;
+    line-height: 1.4;
+}
+
+/* 四级标题 H4 */
+.lesson-body h4 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: calc(12px * var(--font-scale, 1));
+    font-weight: 700;
+    color: var(--gray-dark);
+    margin: 1rem 0 0.5rem 0;
+    text-indent: 0;
+    line-height: 1.4;
+}
+
+/* 五级、六级标题 */
+.lesson-body h5,
+.lesson-body h6 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: calc(11px * var(--font-scale, 1));
+    font-weight: 700;
+    color: var(--gray-dark);
+    margin: 1rem 0 0.5rem 0;
+    text-indent: 0;
+    line-height: 1.4;
+}
+
+/* 段落 */
+.lesson-body > p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: calc(11px * var(--font-scale, 1));
+    color: var(--gray-dark);
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    text-indent: 2em;
+}
+
+.lesson-body > p:first-child {
+    margin-top: 0;
+}
+
+.lesson-body > p:last-child {
+    margin-bottom: 0;
+}
+
+/* 列表内的段落不缩进 */
+.lesson-body li > p {
+    text-indent: 0;
+}
+
+/* 无序列表 */
+.lesson-body ul {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    margin: 1rem 0;
+    padding-left: 2em;
+    list-style-type: disc;
+}
+
+/* 有序列表 */
+.lesson-body ol {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    margin: 1rem 0;
+    padding-left: 2em;
+    list-style-type: decimal;
+}
+
+/* 列表项 */
+.lesson-body li {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: calc(11px * var(--font-scale, 1));
+    color: var(--gray-dark);
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+    text-indent: 0;
+}
+
+/* 嵌套列表 */
+.lesson-body ul ul,
+.lesson-body ol ol,
+.lesson-body ul ol,
+.lesson-body ol ul {
+    margin: 0.5rem 0;
+}
+
+.lesson-body ul ul {
+    list-style-type: circle;
+}
+
+.lesson-body ul ul ul {
+    list-style-type: square;
+}
+
+/* 行内代码 */
+.lesson-body code {
+    font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+    font-size: calc(10px * var(--font-scale, 1));
+    background: var(--paper);
+    color: #c7254e;
+    padding: 0.2em 0.4em;
+    border: 2px solid var(--gray-light);
+    border-radius: 3px;
+}
+
+/* 代码块 */
+.lesson-body pre {
+    font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+    background: var(--paper);
+    border: 4px solid var(--black);
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    position: relative;
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+    line-height: 1.6;
+}
+
+.lesson-body pre::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 10px;
+    height: 10px;
+    background: var(--black);
+}
+
+.lesson-body pre::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    width: 10px;
+    height: 10px;
+    background: var(--black);
+}
+
+.lesson-body pre code {
+    font-family: 'Courier New', 'Monaco', 'Consolas', monospace;
+    font-size: calc(9px * var(--font-scale, 1));
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--black);
+    display: block;
+}
+
+/* 表格 */
+.lesson-body table {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.5rem 0;
+    border: 4px solid var(--black);
+    background: var(--white);
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.lesson-body table thead {
+    background: var(--black);
+    color: var(--white);
+}
+
+.lesson-body table th {
+    font-size: calc(10px * var(--font-scale, 1));
+    font-weight: 700;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-right: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.lesson-body table th:last-child {
+    border-right: none;
+}
+
+.lesson-body table td {
+    font-size: calc(10px * var(--font-scale, 1));
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--gray-light);
+    border-right: 1px solid var(--gray-light);
+    color: var(--gray-dark);
+}
+
+.lesson-body table td:last-child {
+    border-right: none;
+}
+
+.lesson-body table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.lesson-body table tbody tr:nth-child(even) {
+    background: var(--paper);
+}
+
+.lesson-body table tbody tr:hover {
+    background: rgba(0, 102, 255, 0.05);
+}
+
+/* 引用块 */
+.lesson-body blockquote {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    margin: 1.5rem 0;
+    padding: 1rem 1.5rem;
+    border-left: 5px solid var(--accent);
+    background: var(--paper);
+    font-style: italic;
+    color: var(--gray-dark);
+    box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.lesson-body blockquote p {
+    margin: 0.5em 0;
+    text-indent: 0;
+}
+
+.lesson-body blockquote p:first-child {
+    margin-top: 0;
+}
+
+.lesson-body blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* 图片 */
+.lesson-body img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border: 4px solid var(--black);
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+/* 视频 */
+.lesson-body video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem auto;
+    border: 4px solid var(--black);
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+/* iframe（嵌入视频等） */
+.lesson-body iframe {
+    max-width: 100%;
+    display: block;
+    margin: 1.5rem auto;
+    border: 4px solid var(--black);
+    box-shadow: 4px 4px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+/* 链接 */
+.lesson-body a {
+    color: var(--accent);
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.lesson-body a:hover {
+    color: var(--black);
+}
+
+/* 加粗文字 */
+.lesson-body strong,
+.lesson-body b {
+    font-weight: 700;
+    color: var(--black);
+}
+
+/* 斜体文字 */
+.lesson-body em,
+.lesson-body i {
+    font-style: italic;
+}
+
+/* 删除线 */
+.lesson-body del,
+.lesson-body s {
+    text-decoration: line-through;
+    color: var(--gray);
+}
+
+/* 下划线 */
+.lesson-body u {
+    text-decoration: underline;
+}
+
+/* 分隔线 */
+.lesson-body hr {
+    border: none;
+    border-top: 3px solid var(--black);
+    margin: 2rem 0;
+    box-shadow: 0 2px 0 0 var(--gray-light);
+}
+
+/* 上标和下标 */
+.lesson-body sup {
+    font-size: 0.75em;
+    vertical-align: super;
+}
+
+.lesson-body sub {
+    font-size: 0.75em;
+    vertical-align: sub;
+}
+
+/* 确保所有内容继承正确的字体 */
+.lesson-body * {
+    font-family: inherit;
+}
+
+.lesson-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 4px solid var(--black);
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Comic style buttons */
+.cyber-btn {
+    background: var(--white);
+    border: 4px solid var(--black);
+    color: var(--black);
+    padding: 0.75rem 1.25rem;
+    font-size: 8px;
+    font-family: 'Press Start 2P', monospace;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.1s;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 4px 4px 0 0 var(--black);
+}
+
+.cyber-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--black);
+}
+
+.cyber-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 0 var(--black);
+}
+
+.cyber-btn::before {
+    display: none;
+}
+
+.cyber-btn-secondary {
+    background: var(--paper);
+}
+
+/* ========================================
+   ACHIEVEMENT MODAL - COMIC BADGE STYLE
+   ======================================== */
+
+.achievement-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+}
+
+.achievement-modal.show {
+    display: flex;
+    animation: modalFade 0.3s steps(10);
+}
+
+@keyframes modalFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.achievement-card {
+    background: var(--white);
+    border: 8px solid var(--black);
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: 16px 16px 0 0 var(--black);
+    animation: achievementPop 0.4s steps(8);
+}
+
+@keyframes achievementPop {
+    0% {
+        transform: scale(0);
+    }
+    70% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.achievement-card::before,
+.achievement-card::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--black);
+}
+
+.achievement-card::before {
+    top: -8px;
+    left: -8px;
+}
+
+.achievement-card::after {
+    bottom: -8px;
+    right: -8px;
+}
+
+.achievement-glow {
+    display: none;
+}
+
+.achievement-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--black);
+    border: 3px solid var(--black);
+    color: var(--white);
+    font-size: 12px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-family: 'Press Start 2P', monospace;
+    z-index: 10;
+}
+
+.achievement-close:hover {
+    background: var(--gray-dark);
+}
+
+.achievement-badge {
+    font-size: 80px;
+    margin-bottom: 1rem;
+    animation: badgeBounce 0.8s infinite steps(4);
+}
+
+@keyframes badgeBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.achievement-title {
+    font-size: 18px;
+    color: var(--black);
+    margin-bottom: 1rem;
+    text-shadow: 3px 3px 0 var(--gray-light);
+}
+
+.achievement-message {
+    font-size: 9px;
+    color: var(--gray-dark);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.achievement-quote {
+    background: var(--paper);
+    border: 4px solid var(--black);
+    border-left: 8px solid var(--accent);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.quote-icon {
+    font-size: 20px;
+    margin-bottom: 0.5rem;
+}
+
+.achievement-quote p {
+    font-size: 8px;
+    color: var(--black);
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.achievement-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+/* ========================================
+   LOADING STATES
+   ======================================== */
+
+.loading-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--gray);
+    font-size: 9px;
+}
+
+.cyber-loader {
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    border: 6px solid var(--gray-light);
+    border-top-color: var(--black);
+    animation: loaderSpin 1s steps(8) infinite;
+    margin-bottom: 1rem;
+}
+
+.cyber-loader::after {
+    display: none;
+}
+
+.cyber-loader-large {
+    width: 64px;
+    height: 64px;
+    border-width: 8px;
+}
+
+@keyframes loaderSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 2500;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.loading-overlay.show {
+    display: flex;
+}
+
+.loading-overlay p {
+    margin-top: 1rem;
+    color: var(--black);
+    font-size: 10px;
+}
+
+/* ========================================
+   SCROLLBAR - COMIC STYLE
+   ======================================== */
+
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--white);
+    border: 3px solid var(--black);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--black);
+    border: 3px solid var(--white);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--white);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1024px) {
+    .main-container {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: relative;
+        top: 0;
+        max-height: none;
+    }
+
+    .navbar-stats {
+        display: none;
+    }
+
+    .hero-features {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-stats {
+        gap: 1.5rem;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 11px;
+    }
+
+    .brand-text {
+        font-size: 14px;
+    }
+
+    .main-container {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .welcome-screen,
+    .chapter-content {
+        padding: 1rem;
+        border-width: 4px;
+        box-shadow: 8px 8px 0 0 var(--black);
+    }
+
+    .hero-title {
+        font-size: 20px;
+    }
+
+    .hero-subtitle {
+        font-size: 9px;
+    }
+
+    .lesson-footer {
+        flex-direction: column;
+    }
+
+    .lesson-footer .cyber-btn {
+        width: 100%;
+    }
+
+    .achievement-card {
+        padding: 1.5rem 1rem;
+        border-width: 6px;
+    }
+
+    .stat-number {
+        font-size: 24px;
+    }
+}
+
+/* ========================================
+   COMIC SPECIAL EFFECTS
+   ======================================== */
+
+/* Speed lines effect (optional) */
+.speed-lines {
+    position: relative;
+}
+
+.speed-lines::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        rgba(0, 0, 0, 0.05) 10px,
+        rgba(0, 0, 0, 0.05) 12px
+    );
+    pointer-events: none;
+}
+
+/* Emphasis effect */
+.emphasis {
+    position: relative;
+    display: inline-block;
+}
+
+.emphasis::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 3px solid var(--black);
+    pointer-events: none;
+}
+
+/* ========================================
+   SETTINGS MODAL
+   ======================================== */
+
+.settings-btn {
+    background: var(--white);
+    border: 3px solid var(--black);
+    padding: 0.5rem 0.75rem;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 0 var(--black);
+    transition: all 0.1s steps(2);
+}
+
+.settings-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 var(--black);
+}
+
+.settings-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+}
+
+.settings-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+.settings-modal.show {
+    display: flex;
+}
+
+.settings-card {
+    background: var(--white);
+    border: 6px solid var(--black);
+    box-shadow: 12px 12px 0 0 var(--black);
+    width: 90%;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.settings-card::before,
+.settings-card::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--black);
+}
+
+.settings-card::before {
+    top: -6px;
+    left: -6px;
+}
+
+.settings-card::after {
+    bottom: -6px;
+    right: -6px;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 4px solid var(--black);
+    background: var(--paper);
+}
+
+.settings-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--black);
+}
+
+.settings-close {
+    background: var(--white);
+    border: 3px solid var(--black);
+    width: 32px;
+    height: 32px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 2px 2px 0 0 var(--black);
+    transition: all 0.1s steps(2);
+}
+
+.settings-close:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 0 var(--black);
+}
+
+.settings-close:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
+}
+
+.settings-body {
+    padding: 2rem 1.5rem;
+}
+
+.setting-item {
+    margin-bottom: 2rem;
+}
+
+.setting-item:last-child {
+    margin-bottom: 0;
+}
+
+.setting-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.setting-icon {
+    font-size: 14px;
+}
+
+.setting-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--black);
+}
+
+.size-options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.size-btn {
+    background: var(--white);
+    border: 3px solid var(--black);
+    padding: 1rem 0.5rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    box-shadow: 3px 3px 0 0 rgba(0, 0, 0, 0.2);
+    transition: all 0.1s steps(2);
+}
+
+.size-btn:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.size-btn.active {
+    background: var(--black);
+    color: var(--white);
+    box-shadow: 4px 4px 0 0 var(--accent);
+}
+
+.size-label {
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.size-value {
+    font-size: 8px;
+    opacity: 0.7;
+}
+
+.setting-preview {
+    background: var(--paper);
+    border: 4px solid var(--black);
+    padding: 1.5rem;
+}
+
+.preview-label {
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--gray);
+}
+
+.preview-text {
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--black);
+    transition: font-size 0.2s ease;
+}
+
+.settings-footer {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-top: 4px solid var(--black);
+    background: var(--paper);
+}
+
+.settings-footer .cyber-btn {
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+    .size-options {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .settings-card {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .settings-header,
+    .settings-body,
+    .settings-footer {
+        padding: 1rem;
+    }
+}
