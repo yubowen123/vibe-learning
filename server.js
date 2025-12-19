@@ -67,19 +67,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // 会话管理
+const isProduction = process.env.NODE_ENV === 'production';
 app.use(session({
     secret: 'vibe-learning-platform-secret-key-2024',
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: true, // EdgeOne环境下需要HTTPS
+        secure: isProduction, // 仅在生产环境使用HTTPS
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000, // 24小时
-        sameSite: 'none', // CDN环境下需要设置为none
+        sameSite: isProduction ? 'none' : 'lax', // 生产环境使用none，开发环境使用lax
         path: '/', // 确保cookie在所有路径下可用
         domain: '' // 留空自动适应部署域名
     },
-    proxy: true, // 信任代理（CDN）
+    proxy: isProduction, // 仅在生产环境信任代理（CDN）
     rolling: true // 每次请求都刷新cookie过期时间
 }));
 
